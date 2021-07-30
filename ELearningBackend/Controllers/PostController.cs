@@ -21,7 +21,7 @@ namespace ELearningBackend.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Post>>> GetAll()
+        public async Task<ActionResult<IEnumerable<Post>>> GetAll() 
         {
             return Ok(await _unitOfWork.Posts.GetAllPosts());
         }
