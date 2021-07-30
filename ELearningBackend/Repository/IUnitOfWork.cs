@@ -1,9 +1,10 @@
-﻿using System;
+﻿using ELearningBackend.Repository;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace ELearningBackend.Repository
+namespace JWT3.Repository
 {
     public interface IUnitOfWork
     {
@@ -11,7 +12,8 @@ namespace ELearningBackend.Repository
         IQuestionRepository Questions { get; }
         IVideoRepository Videos { get; }
         ITopicRepository Topics { get; }
-
+        ICourse Courses { get; }
+        IArticleRepository Articles { get; }
         IPostRepository Posts { get; }
         ICommentRepository Comments { get; }
         IPostLikeRepository PostLikes { get; }

@@ -1,10 +1,11 @@
 ﻿using ELearningBackend.Models;
+using ELearningBackend.Repository;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace ELearningBackend.Repository
+namespace JWT3.Repository
 {
     public class UnitOfWork : IUnitOfWork
     {
@@ -17,6 +18,8 @@ namespace ELearningBackend.Repository
         private ICommentRepository _comments;
         private IPostLikeRepository _postLike;
         private ICommentLikesRepository _commentLikes;
+        private ICourse _courses;
+        private IArticleRepository _articles;
 
         public IQuestionRepository Questions
         {
@@ -95,7 +98,24 @@ namespace ELearningBackend.Repository
                 return _commentLikes;
             }
         }
+        public ICourse Courses
+        {
+            get
+            {
+                if (_courses is null)
+                    _courses = new CourseRepository(Context);
+                return _courses;
+            }
+        }
 
+        public IArticleRepository Articles { 
+            get
+            {
+                if (_articles is null)
+                    _articles = new ArticleRepository(Context);
+                return _articles;
+            }
+        }
         private ApplicationDBContext Context;
 
         public UnitOfWork(ApplicationDBContext context)
