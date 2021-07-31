@@ -15,13 +15,14 @@ namespace ELearningBackend.Repository
 
         public async Task<IEnumerable<Post>> GetAllPosts()
         {
-            return await context.Posts.Include(p => p.Comments).ThenInclude(c=>c.CommentLikes).Include(p=>p.PostLikes).Include(p=>p.User).ToListAsync();
+            //return await context.Posts.Include(p => p.Comments).ThenInclude(c=>c.CommentLikes).Include(p=>p.PostLikes).Include(p=>p.User).ToListAsync();
+            return await context.Posts.Include(p=>p.User).Include(p => p.PostLikes).ToListAsync();
         }
 
         public async Task<Post> GetPostById(int id)
         {
             return await context.Posts.Where(p=>p.Id==id)
-                .Include(p=>p.User).Include(p => p.Comments).Include(p => p.PostLikes).SingleAsync();
+                .Include(p=>p.User).Include(p => p.Comments).ThenInclude(c => c.CommentLikes).Include(p => p.PostLikes).SingleAsync();
         }
 
         public Post SimpleFind(int id)

@@ -75,6 +75,7 @@ namespace ELearningBackend
             });
 
             services.AddControllers().AddNewtonsoftJson();
+            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
             //    .AddNewtonsoftJson(options =>
             //    options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
             //);
