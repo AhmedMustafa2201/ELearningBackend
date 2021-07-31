@@ -55,6 +55,7 @@ namespace ELearningBackend.Services
 
             return new AuthModel()
             {
+                Id=user.Id,
                 Email = user.Email,
                 ExpiresOn = JwtSecurityToken.ValidTo,
                 IsAuthinticated = true,
@@ -111,6 +112,7 @@ namespace ELearningBackend.Services
             var token = await  CreateJwtTokenAsync(user);
             var roles = await _userManager.GetRolesAsync(user);
 
+            authModel.Id = user.Id;
             authModel.Email = user.Email;
             authModel.ExpiresOn = token.ValidTo;
             authModel.IsAuthinticated = true;

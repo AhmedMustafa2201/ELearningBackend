@@ -34,21 +34,6 @@ namespace ELearningBackend.Migrations
                     b.ToTable("ApplicationUserVideo");
                 });
 
-            modelBuilder.Entity("ExamQuestion", b =>
-                {
-                    b.Property<int>("ExamsId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("QuestionsId")
-                        .HasColumnType("int");
-
-                    b.HasKey("ExamsId", "QuestionsId");
-
-                    b.HasIndex("QuestionsId");
-
-                    b.ToTable("ExamQuestion");
-                });
-
             modelBuilder.Entity("ELearningBackend.Models.ApplicationUser", b =>
                 {
                     b.Property<string>("Id")
@@ -429,6 +414,21 @@ namespace ELearningBackend.Migrations
                     b.ToTable("Topics");
                 });
 
+            modelBuilder.Entity("ExamQuestion", b =>
+                {
+                    b.Property<int>("ExamsId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("QuestionsId")
+                        .HasColumnType("int");
+
+                    b.HasKey("ExamsId", "QuestionsId");
+
+                    b.HasIndex("QuestionsId");
+
+                    b.ToTable("ExamQuestion");
+                });
+
             modelBuilder.Entity("LessonTopic", b =>
                 {
                     b.Property<int>("LessonsId")
@@ -633,21 +633,6 @@ namespace ELearningBackend.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("ExamQuestion", b =>
-                {
-                    b.HasOne("ELearningBackend.Models.Exam", null)
-                        .WithMany()
-                        .HasForeignKey("ExamsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("ELearningBackend.Models.Question", null)
-                        .WithMany()
-                        .HasForeignKey("QuestionsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
             modelBuilder.Entity("ELearningBackend.Models.Comment", b =>
                 {
                     b.HasOne("ELearningBackend.Models.Post", "Post")
@@ -787,6 +772,21 @@ namespace ELearningBackend.Migrations
                     b.Navigation("Post");
 
                     b.Navigation("User");
+                });
+
+            modelBuilder.Entity("ExamQuestion", b =>
+                {
+                    b.HasOne("ELearningBackend.Models.Exam", null)
+                        .WithMany()
+                        .HasForeignKey("ExamsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("ELearningBackend.Models.Question", null)
+                        .WithMany()
+                        .HasForeignKey("QuestionsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("LessonTopic", b =>
