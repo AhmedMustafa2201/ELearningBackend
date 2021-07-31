@@ -8,6 +8,6 @@ namespace ELearningBackend.Repository
 {
     public interface IExamRepository:IRepository<Exam>
     {
-        Task<IEnumerable<Exam>> GetFullExamAsync(int courseId);
+        Task<Exam> GetFullExamAsync(int courseId);
     }
 }
