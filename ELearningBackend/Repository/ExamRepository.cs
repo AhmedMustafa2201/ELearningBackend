@@ -15,9 +15,9 @@ namespace ELearningBackend.Repository
 
         }
 
-        public async Task<IEnumerable<Exam>> GetFullExamAsync(int courseId)
+        public async Task<Exam> GetFullExamAsync(int courseId)
         {
-            return await context.Exams.Where(e=>e.CourseId==courseId).Include(e => e.Questions).ThenInclude(q => q.options).ToListAsync();
+            return await context.Exams.Where(e=>e.CourseId==courseId).Include(e => e.Questions).ThenInclude(q => q.options).SingleOrDefaultAsync();
         }
        
     }
