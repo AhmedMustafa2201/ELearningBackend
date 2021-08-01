@@ -27,11 +27,10 @@ namespace ELearningBackend.Controllers
             return Ok(await _unitOfWork.Exams.GetFullExamAsync(id));
         }
 
-        [HttpGet("Topic/{TopicId}")]
-        public async Task<ActionResult<IEnumerable<Question>>> GetQuestionsByTopicAsync([FromRoute] int TopicId)
+        [HttpGet("Topic/{QstnId}")]
+        public async Task<ActionResult<IEnumerable<Question>>> GetQuestionsByTopicAsync([FromRoute] int QstnId)
         {
-
-                return Ok(await _unitOfWork.Questions.GetByTopicAsync(TopicId));
+                return Ok(await _unitOfWork.Questions.GetRelatedAsync(QstnId));
         }
 
         [HttpPost]
