@@ -1,4 +1,6 @@
-﻿using ELearningBackend.Models;
+﻿using AutoMapper;
+using ELearningBackend.DTOs;
+using ELearningBackend.Models;
 using ELearningBackend.Repository;
 using JWT3.Repository;
 using Microsoft.AspNetCore.Http;
@@ -16,21 +18,25 @@ namespace ELearningBackend.Controllers
     public class PostController : ControllerBase
     {
         private readonly IUnitOfWork _unitOfWork;
-        public PostController(IUnitOfWork unitOfWork)
+        private readonly IMapper _mapper;
+        public PostController(IUnitOfWork unitOfWork, IMapper mapper)
         {
             _unitOfWork = unitOfWork;
+            _mapper = mapper;
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Post>>> GetAll() 
+        public async Task<ActionResult<IEnumerable<PostDTO>>> GetAll() 
         {
-            return Ok(await _unitOfWork.Posts.GetAllPosts());
+            var data = await _unitOfWork.Posts.GetAllPosts();
+            return Ok(_mapper.Map<IEnumerable<PostDTO>>(data));
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<Post>> GetForCourse([FromRoute] int id)
+        public async Task<ActionResult<Post>> GetPostById([FromRoute] int id)
         {
-            return Ok(await _unitOfWork.Posts.GetPostById(id));
+            var data = await _unitOfWork.Posts.GetPostById(id);
+            return Ok(_mapper.Map<PostDTO>(data));
         }
 
         [HttpPost]
@@ -70,7 +76,6 @@ namespace ELearningBackend.Controllers
             }
             return BadRequest();
         }
-
 
         [HttpPost("dislike/{id}")]
         public ActionResult EditReactionDisLike([FromRoute] int id, [FromBody] PostLike _postLike)
