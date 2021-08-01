@@ -13,9 +13,8 @@ namespace ELearningBackend.Models
         public int YearNo { get; set; }
         public int UnitNo { get; set; }
         public int LessonNo { get; set; }
-        public ICollection<Lesson> Lessons { get; set; } = new HashSet<Lesson>();
+        public ICollection<Video> Videos { get; set; } = new HashSet<Video>();
+        public ICollection<Article> Articles { get; set; } = new HashSet<Article>();
         public ICollection<Question> Questions { get; set; } = new HashSet<Question>();
-
-
     }
 }

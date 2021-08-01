@@ -19,6 +19,9 @@ namespace ELearningBackend.Models
         public Course Course { get; set; }
 
         [JsonIgnore]
+        public ICollection<Topic> Topics { get; set; } = new HashSet<Topic>();
+
+        [JsonIgnore]
         public ICollection<ApplicationUser> Watchers { get; set; } = new HashSet<ApplicationUser>();
     }
 }
