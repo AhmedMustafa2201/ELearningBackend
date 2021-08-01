@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace JWT3.Repository
+namespace ELearningBackend.Repository
 {
     public class UnitOfWork : IUnitOfWork
     {

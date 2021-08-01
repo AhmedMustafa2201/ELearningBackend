@@ -13,14 +13,12 @@ namespace ELearningBackend
         public AutoMapperProfile()
         {
             CreateMap<Post, PostDTO>()
-                .ForPath(dest => dest.FirstName, opt => opt.MapFrom(src => src.User.FirstName))
-                .ForPath(dest => dest.LastName, opt => opt.MapFrom(src => src.User.LastName))
+                .ForPath(dest => dest.UserName, opt => opt.MapFrom(src => src.User.UserName))
                 .ForPath(dest => dest.Image, opt => opt.MapFrom(src => src.User.Image))
                 .ForPath(dest => dest.PostLikes, opt => opt.MapFrom(src => src.PostLikes.Count));
 
             CreateMap<Comment, CommentDTO>()
-                .ForPath(dest => dest.FirstName, opt => opt.MapFrom(src => src.User.FirstName))
-                .ForPath(dest => dest.LastName, opt => opt.MapFrom(src => src.User.LastName))
+                .ForPath(dest => dest.UserName, opt => opt.MapFrom(src => src.User.UserName))
                 .ForPath(dest => dest.Image, opt => opt.MapFrom(src => src.User.Image))
                 .ForPath(dest => dest.CommentLikes, opt => opt.MapFrom(src => src.CommentLikes.Count));
 
