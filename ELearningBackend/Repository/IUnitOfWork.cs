@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ELearningBackend.Models
 {
-    public interface IUnitOfWork
+    public interface IUnitOfWork:IDisposable
     {
         IExamRepository Exams { get; }
         IQuestionRepository Questions { get; }

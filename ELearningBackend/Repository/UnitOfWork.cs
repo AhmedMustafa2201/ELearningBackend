@@ -26,7 +26,7 @@ namespace JWT3.Repository
             get
             {
                 if (_questions is null)
-                    _questions = new QuestionRepository(Context);
+                    _questions = new QuestionRepository(_context);
                 return _questions;
             }
         }
@@ -35,7 +35,7 @@ namespace JWT3.Repository
             get
             {
                 if (_exams is null)
-                    _exams = new ExamRepository(Context);
+                    _exams = new ExamRepository(_context);
                 return _exams;
             }
         }
@@ -44,7 +44,7 @@ namespace JWT3.Repository
             get
             {
                 if (_videos is null)
-                    _videos = new VideoRepository(Context);
+                    _videos = new VideoRepository(_context);
                 return _videos;
             }
         }
@@ -54,7 +54,7 @@ namespace JWT3.Repository
             get
             {
                 if (_topics is null)
-                    _topics = new TopicRepository(Context);
+                    _topics = new TopicRepository(_context);
                 return _topics;
             }
         }
@@ -64,7 +64,7 @@ namespace JWT3.Repository
             get
             {
                 if (_postLike is null)
-                    _postLike = new PostLikeRepository(Context);
+                    _postLike = new PostLikeRepository(_context);
                 return _postLike;
             }
         }
@@ -74,7 +74,7 @@ namespace JWT3.Repository
             get
             {
                 if (_posts is null)
-                    _posts = new PostRepository(Context);
+                    _posts = new PostRepository(_context);
                 return _posts;
             }
         }
@@ -84,7 +84,7 @@ namespace JWT3.Repository
             get
             {
                 if (_comments is null)
-                    _comments = new CommentRepository(Context);
+                    _comments = new CommentRepository(_context);
                 return _comments;
             }
         }
@@ -94,7 +94,7 @@ namespace JWT3.Repository
             get
             {
                 if (_commentLikes is null)
-                    _commentLikes = new CommentLikesRepository(Context);
+                    _commentLikes = new CommentLikesRepository(_context);
                 return _commentLikes;
             }
         }
@@ -103,7 +103,7 @@ namespace JWT3.Repository
             get
             {
                 if (_courses is null)
-                    _courses = new CourseRepository(Context);
+                    _courses = new CourseRepository(_context);
                 return _courses;
             }
         }
@@ -112,26 +112,31 @@ namespace JWT3.Repository
             get
             {
                 if (_articles is null)
-                    _articles = new ArticleRepository(Context);
+                    _articles = new ArticleRepository(_context);
                 return _articles;
             }
         }
-        private ApplicationDBContext Context;
+        private ApplicationDBContext _context;
 
         public UnitOfWork(ApplicationDBContext context)
         {
-            Context = context;
+            _context = context;
         }
 
 
         public async Task SaveAsync()
         {
-            await Context.SaveChangesAsync();
+            await _context.SaveChangesAsync();
         }
 
         public void SaveChanges()
         {
-            Context.SaveChanges();
+            _context.SaveChanges();
+        }
+
+        public void Dispose()
+        {
+            _context.Dispose();
         }
     }
 }

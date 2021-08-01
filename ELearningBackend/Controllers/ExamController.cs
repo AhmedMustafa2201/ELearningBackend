@@ -43,7 +43,7 @@ namespace ELearningBackend.Controllers
             return Ok(exam);
         }
         [HttpPut]
-        public async Task<ActionResult> EditExamAsync(Exam exam)
+        public async Task<IActionResult> EditExamAsync(Exam exam)
         {
             _unitOfWork.Exams.Update(exam);
             await _unitOfWork.SaveAsync();
