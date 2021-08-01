@@ -31,8 +31,9 @@ namespace ELearningBackend.Repository
                 if (questions.Count >= 5)
                     break;
                 var range = await context.Questions.Where(q => q.Topics.Contains(topic)).Include(q => q.options).ToListAsync();
-               questions.AddRange(range);
-                
+                questions.AddRange(range.FindAll(x => {
+                    return !questions.Contains(x) && x.Id != QstnId;
+                }));
             }
 
             return questions;

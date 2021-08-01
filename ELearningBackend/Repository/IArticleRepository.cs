@@ -8,6 +8,8 @@ namespace ELearningBackend.Repository
 {
     public interface IArticleRepository
     {
+        Task<IEnumerable<Article>> GetRelatedAsync(int ArticleId);
+
         Task<Article> GetArticleByIdAsync(int ArticleId);
 
     }

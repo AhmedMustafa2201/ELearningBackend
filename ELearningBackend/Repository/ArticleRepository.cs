@@ -19,7 +19,27 @@ namespace ELearningBackend.Repository
         {
             return await context.Articles.Where(a=>a.Id==ArticleId).FirstOrDefaultAsync();
         }
+        public async Task<IEnumerable<Article>> GetRelatedAsync(int ArticleId)
+        {
+            var article = await context.Articles.FindAsync(ArticleId);
+            var topics = await context.Topics.Where(t => t.Articles.Contains(article)).ToListAsync();
 
-        
+            List<Article> articles = new List<Article>();
+
+            foreach (var topic in topics)
+            {
+                if (articles.Count >= 5)
+                    break;
+                var range = await context.Articles.Where(q => q.Topics.Contains(topic)).ToListAsync();
+                articles.AddRange(range.FindAll(x => {
+                    return !articles.Contains(x) && x.Id != ArticleId;
+                }));
+
+            }
+
+            return articles;
+        }
+
+
     }
 }

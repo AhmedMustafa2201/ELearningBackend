@@ -9,6 +9,8 @@ namespace ELearningBackend.Repository
     public interface IVideoRepository: IRepository<Video>
     {
         Task<IEnumerable<Video>> GetLsnsByCrsId(int courseId);
+        Task<IEnumerable<Video>> GetRelatedAsync(int LsnId);
+
 
     }
 }

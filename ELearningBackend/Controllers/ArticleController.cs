@@ -1,6 +1,7 @@
 ﻿using ELearningBackend.Models;
 using ELearningBackend.Repository;
 using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace ELearningBackend.Controllers
@@ -19,6 +20,12 @@ namespace ELearningBackend.Controllers
         public async Task<ActionResult<Article>> GetCommentById([FromRoute] int id)
         {
             return Ok(await _unitOfWork.Articles.GetArticleByIdAsync(id));
+        }
+
+        [HttpGet("topic/{AricleId}")]
+        public async Task<ActionResult<IEnumerable<Article>>> GetRelated([FromRoute] int AricleId)
+        {
+            return Ok(await _unitOfWork.Articles.GetRelatedAsync(AricleId));
         }
 
     }
