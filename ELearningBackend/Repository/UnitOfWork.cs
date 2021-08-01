@@ -13,7 +13,7 @@ namespace JWT3.Repository
         private IExamRepository _exams;
         private IQuestionRepository _questions;
         private IVideoRepository _videos;
-        ITopicRepository _topics;
+        private ITopicRepository _topics;
         private IPostRepository _posts;
         private ICommentRepository _comments;
         private IPostLikeRepository _postLike;
