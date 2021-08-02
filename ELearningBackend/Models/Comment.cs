@@ -25,7 +25,7 @@ namespace ELearningBackend.Models
 
         public ICollection<CommentLike> CommentLikes { get; set; } = new HashSet<CommentLike>();
 
-        [JsonIgnore]
+        //[JsonIgnore]
         public ICollection<CommentDisLike> CommentDisLikes { get; set; } = new HashSet<CommentDisLike>();
 
     }

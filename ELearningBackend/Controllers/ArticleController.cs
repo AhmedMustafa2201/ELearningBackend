@@ -22,11 +22,17 @@ namespace ELearningBackend.Controllers
             return Ok(await _unitOfWork.Articles.GetArticleByIdAsync(id));
         }
 
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<Article>>> GetFewArticles()
+        {
+            return Ok(await _unitOfWork.Articles.GetSomeArticleAsync());
+        }
+
+
         [HttpGet("topic/{AricleId}")]
         public async Task<ActionResult<IEnumerable<Article>>> GetRelated([FromRoute] int AricleId)
         {
             return Ok(await _unitOfWork.Articles.GetRelatedAsync(AricleId));
         }
-
     }
 }

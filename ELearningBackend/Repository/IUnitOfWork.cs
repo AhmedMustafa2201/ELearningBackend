@@ -18,6 +18,8 @@ namespace ELearningBackend.Repository
         ICommentRepository Comments { get; }
         IPostLikeRepository PostLikes { get; }
         ICommentLikesRepository CommentLikes { get; }
+        ICommentDisLikeRepository CommentDisLikes { get; }
+        IPostDisLikeRepository PostDisLike { get; }
 
         Task SaveAsync();
         void SaveChanges();

@@ -19,5 +19,9 @@ namespace ELearningBackend.Repository
         {
             return await context.Courses.Where(c => c.Id == CourseId).Include(c => c.Lessons).FirstOrDefaultAsync();
         }
+        public async Task<IEnumerable<Course>> GetSomeCoursesAsync()
+        {
+            return await context.Courses.Take(9).ToListAsync();
+        }
     }
 }

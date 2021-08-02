@@ -2,6 +2,7 @@
 using ELearningBackend.DTOs;
 using ELearningBackend.Models;
 using ELearningBackend.Repository;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
@@ -31,14 +32,23 @@ namespace ELearningBackend.Controllers
             return Ok(_mapper.Map<IEnumerable<PostDTO>>(data));
         }
 
+        [HttpGet("limited")]
+        public async Task<ActionResult<IEnumerable<PostDTO>>> GetPostsWithLimited()
+        {
+            var data = await _unitOfWork.Posts.GetPostsWithLimit();
+            return Ok(_mapper.Map<IEnumerable<PostDTO>>(data));
+        }
+
+
         [HttpGet("{id}")]
         public async Task<ActionResult<Post>> GetPostById([FromRoute] int id)
         {
             var data = await _unitOfWork.Posts.GetPostById(id);
-            return Ok(_mapper.Map<PostDTO>(data));
+            return Ok(_mapper.Map<PostCommentsDTO>(data));
         }
 
-        [HttpPost]
+        [HttpPost("Add")]
+        //[EnableCors("any")]
         public async Task<ActionResult> AddPost(Post _post)
         { 
             await _unitOfWork.Posts.AddAsync(_post);
@@ -64,29 +74,42 @@ namespace ELearningBackend.Controllers
 
 
         [HttpPost("like/{id}")]
-        public ActionResult EditReactionLike([FromRoute] int id, [FromBody] PostLike _postLike)
+        public async Task<ActionResult> EditReactionLike([FromRoute] int id, [FromBody] PostLike _postLike)
         {
-            var data = _unitOfWork.PostLikes.FindInPostLike(id, _postLike.UserId);
-            if (!data)
+            var recordInLike = await _unitOfWork.PostLikes.FindInPostLike(id, _postLike.UserId);
+            if (recordInLike == null)
             {
-                _unitOfWork.PostLikes.Add(_postLike);
-                _unitOfWork.SaveChanges();
-                return Ok();
+                await _unitOfWork.PostLikes.AddAsync(_postLike);
+                await _unitOfWork.SaveAsync();
             }
-            return BadRequest();
+
+            var data = await _unitOfWork.PostDisLike.FindInPostDisLike(id, _postLike.UserId);
+            if (data!=null)
+            {
+                _unitOfWork.PostDisLike.Remove(data);
+                _unitOfWork.SaveChanges();
+            }
+            return Ok(_mapper.Map<IEnumerable<PostDTO>>(await _unitOfWork.Posts.GetAllPosts()));
         }
 
         [HttpPost("dislike/{id}")]
-        public ActionResult EditReactionDisLike([FromRoute] int id, [FromBody] PostLike _postLike)
+        public async Task<ActionResult> EditReactionDisLike([FromRoute] int id, [FromBody] PostDisLike _postDisLike)
         {
-            var data = _unitOfWork.PostLikes.FindInPostLike(id, _postLike.UserId);
-            if (data)
+            var recordInDislike = await _unitOfWork.PostDisLike.FindInPostDisLike(id, _postDisLike.UserId);
+
+            if (recordInDislike == null)
             {
-                _unitOfWork.PostLikes.Remove(_postLike);
-                _unitOfWork.SaveChanges();
-                return Ok();
+                await _unitOfWork.PostDisLike.AddAsync(_postDisLike);
+                await _unitOfWork.SaveAsync();
             }
-            return BadRequest();
+
+            var data = await _unitOfWork.PostLikes.FindInPostLike(id, _postDisLike.UserId);
+            if (data!=null)
+            {
+                _unitOfWork.PostLikes.Remove(data);
+                _unitOfWork.SaveChanges();
+            }
+            return Ok(_mapper.Map<IEnumerable<PostDTO>>(await _unitOfWork.Posts.GetAllPosts()));
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using ELearningBackend.Models;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,9 +12,9 @@ namespace ELearningBackend.Repository
         public PostLikeRepository(ApplicationDBContext context) : base(context)
         { }
 
-        public bool FindInPostLike(int id, string userId)
+        public async Task<PostLike> FindInPostLike(int id, string userId)
         {
-            return context.Likes.Any(l => l.PostId == id && l.UserId.Contains(userId));
+            return await context.Likes.Where(l => l.PostId == id && l.UserId.Contains(userId)).SingleOrDefaultAsync();
         }
     }
 }

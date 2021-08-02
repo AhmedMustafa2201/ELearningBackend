@@ -11,6 +11,7 @@ namespace ELearningBackend.Repository
         Task<IEnumerable<Article>> GetRelatedAsync(int ArticleId);
 
         Task<Article> GetArticleByIdAsync(int ArticleId);
-
+        Task<IEnumerable<Article>> GetSomeArticleAsync();
+        
     }
 }

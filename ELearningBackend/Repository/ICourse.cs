@@ -9,6 +9,7 @@ namespace ELearningBackend.Repository
     public interface ICourse
     {
         Task<Course> GetCourseByIdAsync(int CourseId);
+        Task<IEnumerable<Course>> GetSomeCoursesAsync();
 
     }
 }

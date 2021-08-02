@@ -69,7 +69,7 @@ namespace ELearningBackend
             {
                 option.AddPolicy(str, builder =>
                 {
-                    builder.AllowAnyOrigin();
+                    builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader();
                 });
             });
 
@@ -83,6 +83,8 @@ namespace ELearningBackend
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "JWT3", Version = "v1" });
             });
+
+            services.AddSignalR();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -102,6 +104,10 @@ namespace ELearningBackend
             app.UseAuthentication();
             app.UseAuthorization();
 
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapHub<BroadcastHub>("/notify");
+            });
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();

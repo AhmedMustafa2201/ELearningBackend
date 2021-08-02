@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace ELearningBackend.Repository
 {
-    public interface IPostLikeRepository : IRepository<PostLike>
+    public interface IPostDisLikeRepository : IRepository<PostDisLike>
     {
-        Task<PostLike> FindInPostLike(int id, string userId);
+        Task<PostDisLike> FindInPostDisLike(int id, string userId);
 
     }
 }

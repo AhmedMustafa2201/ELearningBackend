@@ -1,7 +1,10 @@
-﻿using ELearningBackend.Models;
+﻿using AutoMapper;
+using ELearningBackend.DTOs;
+using ELearningBackend.Models;
 using ELearningBackend.Repository;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.SignalR;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,9 +17,14 @@ namespace ELearningBackend.Controllers
     public class CommentController : ControllerBase
     {
         private readonly IUnitOfWork _unitOfWork;
-        public CommentController(IUnitOfWork unitOfWork)
+        private readonly IMapper _mapper;
+        private readonly IHubContext<BroadcastHub, IHubClient> hubContext;
+
+        public CommentController(IUnitOfWork unitOfWork, IMapper mapper, IHubContext<BroadcastHub, IHubClient> _hubContext)
         {
             _unitOfWork = unitOfWork;
+            _mapper = mapper;
+            hubContext = _hubContext;
         }
 
         [HttpGet]
@@ -44,35 +52,77 @@ namespace ELearningBackend.Controllers
         {
             await _unitOfWork.Comments.AddAsync(_comment);
             await _unitOfWork.SaveAsync();
+            await hubContext.Clients.All.broadcast();
+
             return Ok();
         }
 
 
         [HttpPost("like/{id}")]
-        public ActionResult EditReactionLike([FromRoute] int id, [FromBody] CommentLike _comment)
+        public async Task<ActionResult> EditReactionLike([FromRoute] int id, [FromBody] CommentLike _comment)
         {
-            var data = _unitOfWork.CommentLikes.FindInCommentLike(id, _comment.UserId);
-            if (!data)
+            var recordInLike = await _unitOfWork.CommentLikes.FindInCommentLike(id, _comment.UserId);
+            if (recordInLike == null)
             {
-                _unitOfWork.CommentLikes.Add(_comment);
-                _unitOfWork.SaveChanges();
-                return Ok();
+                await _unitOfWork.CommentLikes.AddAsync(_comment);
+                await _unitOfWork.SaveAsync();
+                await hubContext.Clients.All.broadcast();
+
             }
-            return BadRequest();
+
+            var data = await _unitOfWork.CommentDisLikes.FindInCommentDisLike(id, _comment.UserId);
+            if (data != null)
+            {
+                _unitOfWork.CommentDisLikes.Remove(data);
+                _unitOfWork.SaveChanges();
+                await hubContext.Clients.All.broadcast();
+
+            }
+            return Ok();
+
+            //var data = _unitOfWork.CommentLikes.FindInCommentLike(id, _comment.UserId);
+            //if (!data)
+            //{
+            //    _unitOfWork.CommentLikes.Add(_comment);
+            //    _unitOfWork.SaveChanges();
+            //    return Ok();
+            //}
+            //return BadRequest();
         }
 
 
         [HttpPost("dislike/{id}")]
-        public ActionResult EditReactionDisLike([FromRoute] int id, [FromBody] CommentLike _comment)
+        public async Task<ActionResult> EditReactionDisLike([FromRoute] int id, [FromBody] CommentDisLike _comment)
         {
-            var data = _unitOfWork.CommentLikes.FindInCommentLike(id, _comment.UserId);
-            if (data)
+            var recordInDisLike = await _unitOfWork.CommentDisLikes.FindInCommentDisLike(id, _comment.UserId);
+            if (recordInDisLike == null)
             {
-                _unitOfWork.CommentLikes.Remove(_comment);
-                _unitOfWork.SaveChanges();
-                return Ok();
+                await _unitOfWork.CommentDisLikes.AddAsync(_comment);
+                await _unitOfWork.SaveAsync();
+                await hubContext.Clients.All.broadcast();
+
             }
-            return BadRequest();
+
+            var data = await _unitOfWork.CommentLikes.FindInCommentLike(id, _comment.UserId);
+            if (data != null)
+            {
+                _unitOfWork.CommentLikes.Remove(data);
+                _unitOfWork.SaveChanges();
+                await hubContext.Clients.All.broadcast();
+
+            }
+            return Ok();
+
+
+
+            //var data = _unitOfWork.CommentLikes.FindInCommentLike(id, _comment.UserId);
+            //if (data)
+            //{
+            //    _unitOfWork.CommentLikes.Remove(_comment);
+            //    _unitOfWork.SaveChanges();
+            //    return Ok();
+            //}
+            //return BadRequest();
         }
     }
 }
