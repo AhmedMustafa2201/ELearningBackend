@@ -1,4 +1,6 @@
-﻿using ELearningBackend.Models;
+﻿using AutoMapper;
+using ELearningBackend.DTOs;
+using ELearningBackend.Models;
 using ELearningBackend.Repository;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -14,9 +16,13 @@ namespace ELearningBackend.Controllers
     public class CommentController : ControllerBase
     {
         private readonly IUnitOfWork _unitOfWork;
-        public CommentController(IUnitOfWork unitOfWork)
+        private readonly IMapper _mapper;
+
+        public CommentController(IUnitOfWork unitOfWork, IMapper mapper)
         {
             _unitOfWork = unitOfWork;
+            _mapper = mapper;
+
         }
 
         [HttpGet]
@@ -49,30 +55,62 @@ namespace ELearningBackend.Controllers
 
 
         [HttpPost("like/{id}")]
-        public ActionResult EditReactionLike([FromRoute] int id, [FromBody] CommentLike _comment)
+        public async Task<ActionResult> EditReactionLike([FromRoute] int id, [FromBody] CommentLike _comment)
         {
-            var data = _unitOfWork.CommentLikes.FindInCommentLike(id, _comment.UserId);
-            if (!data)
+            var recordInLike = await _unitOfWork.CommentLikes.FindInCommentLike(id, _comment.UserId);
+            if (recordInLike == null)
             {
-                _unitOfWork.CommentLikes.Add(_comment);
-                _unitOfWork.SaveChanges();
-                return Ok();
+                await _unitOfWork.CommentLikes.AddAsync(_comment);
+                await _unitOfWork.SaveAsync();
             }
-            return BadRequest();
+
+            var data = await _unitOfWork.CommentDisLikes.FindInCommentDisLike(id, _comment.UserId);
+            if (data != null)
+            {
+                _unitOfWork.CommentDisLikes.Remove(data);
+                _unitOfWork.SaveChanges();
+            }
+            return Ok();
+
+            //var data = _unitOfWork.CommentLikes.FindInCommentLike(id, _comment.UserId);
+            //if (!data)
+            //{
+            //    _unitOfWork.CommentLikes.Add(_comment);
+            //    _unitOfWork.SaveChanges();
+            //    return Ok();
+            //}
+            //return BadRequest();
         }
 
 
         [HttpPost("dislike/{id}")]
-        public ActionResult EditReactionDisLike([FromRoute] int id, [FromBody] CommentLike _comment)
+        public async Task<ActionResult> EditReactionDisLike([FromRoute] int id, [FromBody] CommentDisLike _comment)
         {
-            var data = _unitOfWork.CommentLikes.FindInCommentLike(id, _comment.UserId);
-            if (data)
+            var recordInDisLike = await _unitOfWork.CommentDisLikes.FindInCommentDisLike(id, _comment.UserId);
+            if (recordInDisLike == null)
             {
-                _unitOfWork.CommentLikes.Remove(_comment);
-                _unitOfWork.SaveChanges();
-                return Ok();
+                await _unitOfWork.CommentDisLikes.AddAsync(_comment);
+                await _unitOfWork.SaveAsync();
             }
-            return BadRequest();
+
+            var data = await _unitOfWork.CommentLikes.FindInCommentLike(id, _comment.UserId);
+            if (data != null)
+            {
+                _unitOfWork.CommentLikes.Remove(data);
+                _unitOfWork.SaveChanges();
+            }
+            return Ok();
+
+
+
+            //var data = _unitOfWork.CommentLikes.FindInCommentLike(id, _comment.UserId);
+            //if (data)
+            //{
+            //    _unitOfWork.CommentLikes.Remove(_comment);
+            //    _unitOfWork.SaveChanges();
+            //    return Ok();
+            //}
+            //return BadRequest();
         }
     }
 }

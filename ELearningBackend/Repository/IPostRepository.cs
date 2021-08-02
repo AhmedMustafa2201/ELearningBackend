@@ -9,6 +9,7 @@ namespace ELearningBackend.Repository
     public interface IPostRepository : IRepository<Post>
     {
         Task<IEnumerable<Post>> GetAllPosts();
+        Task<IEnumerable<Post>> GetPostsWithLimit();
         Task<Post> GetPostById(int id);
         Post SimpleFind(int id);
     }

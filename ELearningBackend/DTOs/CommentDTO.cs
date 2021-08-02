@@ -10,12 +10,13 @@ namespace ELearningBackend.DTOs
         public int Id { get; set; }
         public string Content { get; set; }
         public DateTime? CreatedAt { get; set; }
-        public int PostId { get; set; }
-        public string UserId { get; set; }
         public string UserName { get; set; }
-
         public string Image { get; set; }
 
         public int CommentLikes { get; set; }
+
+        public string[] CommentLikesArr { get; set; }
+        public string[] CommentDisLikesArr { get; set; }
+
     }
 }

@@ -8,7 +8,7 @@ namespace ELearningBackend.Repository
 {
     public interface ICommentLikesRepository : IRepository<CommentLike>
     {
-        public bool FindInCommentLike(int id, string userId);
+        Task<CommentLike> FindInCommentLike(int id, string userId);
 
     }
 }
