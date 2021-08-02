@@ -21,9 +21,6 @@ namespace ELearningBackend.Models
 
         public DateTime? CreatedAt { get; set; }
 
-  
-
-
         [JsonIgnore]
         public ICollection<LessonComment> Comments { get; set; } = new HashSet<LessonComment>(); 
 
