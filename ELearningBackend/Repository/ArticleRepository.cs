@@ -41,12 +41,9 @@ namespace ELearningBackend.Repository
         }
 
 
-<<<<<<< HEAD
         public async Task<IEnumerable<Article>> GetSomeArticleAsync()
         {
             return await context.Articles.Take(3).ToListAsync();
         }
-=======
->>>>>>> 4510c06e4c2f298e093d5fdac4e668d1bd1a53cd
     }
 }
