@@ -4,6 +4,7 @@ using ELearningBackend.Models;
 using ELearningBackend.Repository;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.SignalR;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,12 +18,13 @@ namespace ELearningBackend.Controllers
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
+        private readonly IHubContext<BroadcastHub, IHubClient> hubContext;
 
-        public CommentController(IUnitOfWork unitOfWork, IMapper mapper)
+        public CommentController(IUnitOfWork unitOfWork, IMapper mapper, IHubContext<BroadcastHub, IHubClient> _hubContext)
         {
             _unitOfWork = unitOfWork;
             _mapper = mapper;
-
+            hubContext = _hubContext;
         }
 
         [HttpGet]
@@ -50,6 +52,8 @@ namespace ELearningBackend.Controllers
         {
             await _unitOfWork.Comments.AddAsync(_comment);
             await _unitOfWork.SaveAsync();
+            await hubContext.Clients.All.broadcast();
+
             return Ok();
         }
 
@@ -62,6 +66,8 @@ namespace ELearningBackend.Controllers
             {
                 await _unitOfWork.CommentLikes.AddAsync(_comment);
                 await _unitOfWork.SaveAsync();
+                await hubContext.Clients.All.broadcast();
+
             }
 
             var data = await _unitOfWork.CommentDisLikes.FindInCommentDisLike(id, _comment.UserId);
@@ -69,6 +75,8 @@ namespace ELearningBackend.Controllers
             {
                 _unitOfWork.CommentDisLikes.Remove(data);
                 _unitOfWork.SaveChanges();
+                await hubContext.Clients.All.broadcast();
+
             }
             return Ok();
 
@@ -91,6 +99,8 @@ namespace ELearningBackend.Controllers
             {
                 await _unitOfWork.CommentDisLikes.AddAsync(_comment);
                 await _unitOfWork.SaveAsync();
+                await hubContext.Clients.All.broadcast();
+
             }
 
             var data = await _unitOfWork.CommentLikes.FindInCommentLike(id, _comment.UserId);
@@ -98,6 +108,8 @@ namespace ELearningBackend.Controllers
             {
                 _unitOfWork.CommentLikes.Remove(data);
                 _unitOfWork.SaveChanges();
+                await hubContext.Clients.All.broadcast();
+
             }
             return Ok();
 
