@@ -30,19 +30,19 @@ namespace ELearningBackend.Repository
                 if (videos.Count >= 5)
                     break;
                 var range = await context.Videos.Where(q => q.Topics.Contains(topic)).ToListAsync();
-                videos.AddRange(range.FindAll(x => {
-                return !videos.Contains(x) && x.Id!=LsnId;
-                    }));
+                videos.AddRange(range.FindAll(x =>
+                {
+                    return !videos.Contains(x) && x.Id != LsnId;
+                }));
 
-<<<<<<< HEAD
+            }
+            return videos;
+
+        }
+
         public async Task<IEnumerable<Video>> GetSomeLsnAsync()
         {
             return await context.Videos.Take(4).ToListAsync();
-=======
-            }
-
-            return videos;
->>>>>>> 4510c06e4c2f298e093d5fdac4e668d1bd1a53cd
         }
     }
 }
