@@ -24,7 +24,9 @@ namespace ELearningBackend.Models
         public DbSet<Post> Posts { get; set; }
         public DbSet<Comment> Comments { get; set; }
         public DbSet<PostLike> Likes { get; set; }
+        public DbSet<PostDisLike> DisLikes { get; set; }
         public DbSet<CommentLike> CommentLikes { get; set; }
+        public DbSet<CommentDisLike> CommentDisLikes { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -90,6 +92,9 @@ namespace ELearningBackend.Models
 
             builder.Entity<PostLike>().ToTable("PostLike");
             builder.Entity<CommentLike>().ToTable("CommentLike");
+            builder.Entity<CommentDisLike>().ToTable("CommentDisLike");
+            builder.Entity<PostDisLike>().ToTable("PostDisLike");
+
             base.OnModelCreating(builder); 
            
         }

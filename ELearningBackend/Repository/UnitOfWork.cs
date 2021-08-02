@@ -18,8 +18,11 @@ namespace ELearningBackend.Repository
         private ICommentRepository _comments;
         private IPostLikeRepository _postLike;
         private ICommentLikesRepository _commentLikes;
+        private ICommentDisLikeRepository _commentDisLikes;
+
         private ICourse _courses;
         private IArticleRepository _articles;
+        private IPostDisLikeRepository _postDisLike;
 
         public IQuestionRepository Questions
         {
@@ -116,6 +119,27 @@ namespace ELearningBackend.Repository
                 return _articles;
             }
         }
+
+        public IPostDisLikeRepository PostDisLike
+        {
+            get
+            {
+                if (_postDisLike is null)
+                    _postDisLike = new PostDisLikeRepository(_context);
+                return _postDisLike;
+            }
+        }
+
+        public ICommentDisLikeRepository CommentDisLikes
+        {
+            get
+            {
+                if (_commentDisLikes is null)
+                    _commentDisLikes = new CommentDisLikeRepository(_context);
+                return _commentDisLikes;
+            }
+        }
+
         private ApplicationDBContext _context;
 
         public UnitOfWork(ApplicationDBContext context)
