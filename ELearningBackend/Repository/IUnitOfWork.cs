@@ -4,9 +4,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace ELearningBackend.Models
+namespace ELearningBackend.Repository
 {
-    public interface IUnitOfWork
+    public interface IUnitOfWork:IDisposable
     {
         IExamRepository Exams { get; }
         IQuestionRepository Questions { get; }

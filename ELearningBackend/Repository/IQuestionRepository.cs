@@ -9,5 +9,7 @@ namespace ELearningBackend.Repository
     public interface IQuestionRepository
     {
         Task<IEnumerable<Question>> GetByTopicAsync(int TopicId);
+        Task<IEnumerable<Question>> GetRelatedAsync(int QstnId);
+
     }
 }

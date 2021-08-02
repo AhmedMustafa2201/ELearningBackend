@@ -1,6 +1,5 @@
 ﻿using ELearningBackend.Models;
 using ELearningBackend.Repository;
-using JWT3.Repository;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -38,13 +37,10 @@ namespace ELearningBackend.Controllers
             return Ok(await _unitOfWork.Videos.GetAsync(lsnId));
         }
 
-        [HttpGet("topic/{TopicId}")]
-        public async  Task<ActionResult<IEnumerable<Video>>> GetByTopicId([FromRoute] int TopicId)
+        [HttpGet("topic/{LsnId}")]
+        public async  Task<ActionResult<IEnumerable<Video>>> GetRelated([FromRoute] int LsnId)
         {
-            var topic = await _unitOfWork.Topics.GetAsync(TopicId);
-            if(topic is null)
-                return NoContent();
-            return Ok(await _unitOfWork.Videos.FindAsync(l=>l.Topics.Contains(topic)));
+            return Ok(await _unitOfWork.Videos.GetRelatedAsync(LsnId)); 
         }
 
         [HttpGet("Course/{CrsId}")]

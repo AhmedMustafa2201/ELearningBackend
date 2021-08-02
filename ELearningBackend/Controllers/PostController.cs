@@ -2,7 +2,6 @@
 using ELearningBackend.DTOs;
 using ELearningBackend.Models;
 using ELearningBackend.Repository;
-using JWT3.Repository;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;

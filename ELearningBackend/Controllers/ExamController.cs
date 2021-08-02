@@ -1,6 +1,5 @@
 ﻿using ELearningBackend.Models;
 using ELearningBackend.Repository;
-using JWT3.Repository;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -28,11 +27,10 @@ namespace ELearningBackend.Controllers
             return Ok(await _unitOfWork.Exams.GetFullExamAsync(id));
         }
 
-        [HttpGet("Topic/{TopicId}")]
-        public async Task<ActionResult<IEnumerable<Question>>> GetQuestionsByTopicAsync([FromRoute] int TopicId)
+        [HttpGet("Topic/{QstnId}")]
+        public async Task<ActionResult<IEnumerable<Question>>> GetQuestionsByTopicAsync([FromRoute] int QstnId)
         {
-
-                return Ok(await _unitOfWork.Questions.GetByTopicAsync(TopicId));
+                return Ok(await _unitOfWork.Questions.GetRelatedAsync(QstnId));
         }
 
         [HttpPost]
@@ -43,7 +41,7 @@ namespace ELearningBackend.Controllers
             return Ok(exam);
         }
         [HttpPut]
-        public async Task<ActionResult> EditExamAsync(Exam exam)
+        public async Task<IActionResult> EditExamAsync(Exam exam)
         {
             _unitOfWork.Exams.Update(exam);
             await _unitOfWork.SaveAsync();
