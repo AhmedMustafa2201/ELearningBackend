@@ -1,5 +1,6 @@
 ﻿using ELearningBackend.Models;
 using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace ELearningBackend.Controllers
@@ -8,7 +9,7 @@ namespace ELearningBackend.Controllers
     [ApiController]
     public class CourseController : ControllerBase
     {
-         private readonly IUnitOfWork _unitOfWork;
+        private readonly IUnitOfWork _unitOfWork;
         public CourseController(IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
@@ -18,6 +19,11 @@ namespace ELearningBackend.Controllers
         public async Task<ActionResult<Course>> GetCommentById([FromRoute] int id)
         {
             return Ok(await _unitOfWork.Courses.GetCourseByIdAsync(id));
+        }
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<Course>>> GetFewCrs()
+        {
+            return Ok(await _unitOfWork.Courses.GetSomeCoursesAsync());
         }
 
     }

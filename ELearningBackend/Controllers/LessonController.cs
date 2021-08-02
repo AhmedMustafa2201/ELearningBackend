@@ -25,6 +25,12 @@ namespace ELearningBackend.Controllers
         {
             return Ok(_unitOfWork.Videos.GetAllAsync());
         }
+        [Route("[controller]")]
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<Video>>> GetFewLsn()
+        {
+            return Ok(await _unitOfWork.Videos.GetSomeLsnAsync());
+        }
 
         [HttpGet("{lsnId}")]
         public async Task<ActionResult<IEnumerable<Video>>> GetLsnById([FromRoute] int lsnId)

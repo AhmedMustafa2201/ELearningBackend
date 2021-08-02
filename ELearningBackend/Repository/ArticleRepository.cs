@@ -20,6 +20,9 @@ namespace ELearningBackend.Repository
             return await context.Articles.Where(a=>a.Id==ArticleId).FirstOrDefaultAsync();
         }
 
-        
+        public async Task<IEnumerable<Article>> GetSomeArticleAsync()
+        {
+            return await context.Articles.Take(3).ToListAsync();
+        }
     }
 }
