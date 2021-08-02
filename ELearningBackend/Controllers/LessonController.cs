@@ -20,9 +20,9 @@ namespace ELearningBackend.Controllers
         }
 
         [HttpGet]
-        public ActionResult<IEnumerable<Video>> GetAll()
+        public async  Task<ActionResult<IEnumerable<Video>>> GetAll()
         {
-            return Ok(_unitOfWork.Videos.GetAllAsync());
+            return Ok(await _unitOfWork.Videos.GetAllAsync2());
         }
         [Route("[controller]")]
         [HttpGet]

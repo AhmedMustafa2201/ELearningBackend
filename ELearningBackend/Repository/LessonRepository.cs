@@ -14,6 +14,11 @@ namespace ELearningBackend.Repository
 
         }
 
+        public async Task<IEnumerable<Video>> GetAllAsync2()
+        {
+            return await context.Videos.ToListAsync();
+        }
+
         public async Task<IEnumerable<Video>> GetLsnsByCrsId(int courseId)
         {
             return await context.Videos.Where(v => v.CourseId == courseId).ToListAsync();
