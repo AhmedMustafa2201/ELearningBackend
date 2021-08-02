@@ -69,7 +69,10 @@ namespace ELearningBackend
             {
                 option.AddPolicy(str, builder =>
                 {
-                    builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader();
+                    builder.AllowAnyMethod()
+                .AllowAnyHeader()
+                .AllowCredentials()
+                .WithOrigins("http://localhost:4200");
                 });
             });
 

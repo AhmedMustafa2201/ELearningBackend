@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.SignalR;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,10 +20,13 @@ namespace ELearningBackend.Controllers
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
-        public PostController(IUnitOfWork unitOfWork, IMapper mapper)
+        private readonly IHubContext<BroadcastHub, IHubClient> hubContext;
+
+        public PostController(IUnitOfWork unitOfWork, IMapper mapper, IHubContext<BroadcastHub, IHubClient> _hubContext)
         {
             _unitOfWork = unitOfWork;
             _mapper = mapper;
+            hubContext = _hubContext;
         }
 
         [HttpGet]
@@ -53,6 +57,8 @@ namespace ELearningBackend.Controllers
         { 
             await _unitOfWork.Posts.AddAsync(_post);
             await _unitOfWork.SaveAsync();
+            await hubContext.Clients.All.broadcast();
+
             return Ok();
         }
 
