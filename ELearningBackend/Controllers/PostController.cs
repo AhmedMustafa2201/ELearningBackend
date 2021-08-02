@@ -47,8 +47,8 @@ namespace ELearningBackend.Controllers
             return Ok(_mapper.Map<PostCommentsDTO>(data));
         }
 
-        [HttpPost]
-        [EnableCors("any")]
+        [HttpPost("Add")]
+        //[EnableCors("any")]
         public async Task<ActionResult> AddPost(Post _post)
         { 
             await _unitOfWork.Posts.AddAsync(_post);
