@@ -10,22 +10,22 @@ namespace ELearningBackend.Migrations
             migrationBuilder.InsertData(
            table: "AspNetRoles"
            , columns: new[] { "Id", "Name", "NormalizedName", "ConcurrencyStamp" }
-           , values: new object[] { Guid.NewGuid().ToString(), "Bronze", "Bronze".ToUpper(), Guid.NewGuid().ToString() }
+           , values: new object[] { "b7222e6a-1729-4e2d-a70d-65b2a188c6bb", "Bronze", "Bronze".ToUpper(), Guid.NewGuid().ToString() }
            );
             migrationBuilder.InsertData(
            table: "AspNetRoles"
            , columns: new[] { "Id", "Name", "NormalizedName", "ConcurrencyStamp" }
-           , values: new object[] { Guid.NewGuid().ToString(), "Silver", "Silver".ToUpper(), Guid.NewGuid().ToString() }
+           , values: new object[] { "c7d6ecd6-0012-4363-af95-7b91d76ec867", "Silver", "Silver".ToUpper(), Guid.NewGuid().ToString() }
            );
             migrationBuilder.InsertData(
            table: "AspNetRoles"
            , columns: new[] { "Id", "Name", "NormalizedName", "ConcurrencyStamp" }
-           , values: new object[] { Guid.NewGuid().ToString(), "Gold", "Gold".ToUpper(), Guid.NewGuid().ToString() }
+           , values: new object[] { "4881c5e0-3912-4daf-af14-00a9d1b7e534", "Gold", "Gold".ToUpper(), Guid.NewGuid().ToString() }
            );
             migrationBuilder.InsertData(
                 table: "AspNetRoles"
                 , columns: new[] { "Id", "Name", "NormalizedName", "ConcurrencyStamp" }
-                , values: new object[] { Guid.NewGuid().ToString(), "Admin", "Admin".ToUpper(), Guid.NewGuid().ToString() }
+                , values: new object[] { "158dbd46-5887-470c-a704-2bd4ead8f6cd", "Admin", "Admin".ToUpper(), Guid.NewGuid().ToString() }
                 );
 
             //inserting new user
