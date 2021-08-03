@@ -15,7 +15,6 @@ namespace ELearningBackend.Models
         [Required,MaxLength(100)]
         public string Title { get; set; }
 
-
         [Required]
         public string Image { get; set; }
 
@@ -23,6 +22,5 @@ namespace ELearningBackend.Models
 
         [JsonIgnore]
         public ICollection<LessonComment> Comments { get; set; } = new HashSet<LessonComment>(); 
-
     }
 }

@@ -65,11 +65,12 @@ namespace ELearningBackend.Controllers
             return Ok();
         }
 
-        [HttpDelete]
-        public async Task<IActionResult> DeleteLsn(Video video)
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteLsn([FromRoute] int id)
         {
+            var video = await _unitOfWork.Videos.GetAsync(id);
             _unitOfWork.Videos.Remove(video);
-            await _unitOfWork.SaveAsync();
+            await _unitOfWork.SaveAsync(); 
             return Ok();
         }
     }

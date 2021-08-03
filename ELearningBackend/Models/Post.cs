@@ -19,6 +19,7 @@ namespace ELearningBackend.Models
         public string UserId { get; set; }
         public ApplicationUser User { get; set; }
         
+    
         public ICollection<Comment> Comments { get; set; } = new HashSet<Comment>();
         //[JsonIgnore]
         public ICollection<PostLike> PostLikes { get; set; } = new HashSet<PostLike>();
