@@ -95,7 +95,8 @@ namespace ELearningBackend.Controllers
                 _unitOfWork.PostDisLike.Remove(data);
                 _unitOfWork.SaveChanges();
             }
-            return Ok(_mapper.Map<IEnumerable<PostDTO>>(await _unitOfWork.Posts.GetAllPosts()));
+            await hubContext.Clients.All.broadcast();
+            return Ok();
         }
 
         [HttpPost("dislike/{id}")]
@@ -115,7 +116,8 @@ namespace ELearningBackend.Controllers
                 _unitOfWork.PostLikes.Remove(data);
                 _unitOfWork.SaveChanges();
             }
-            return Ok(_mapper.Map<IEnumerable<PostDTO>>(await _unitOfWork.Posts.GetAllPosts()));
+            await hubContext.Clients.All.broadcast();
+            return Ok();
         }
     }
 }

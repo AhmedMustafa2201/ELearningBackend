@@ -62,7 +62,7 @@ namespace ELearningBackend.Controllers
             {
                 await _unitOfWork.CommentLikes.AddAsync(_comment);
                 await _unitOfWork.SaveAsync();
-                await hubContext.Clients.All.broadcast();
+                //await hubContext.Clients.All.broadcast();
 
             }
 
@@ -71,9 +71,9 @@ namespace ELearningBackend.Controllers
             {
                 _unitOfWork.CommentDisLikes.Remove(data);
                 _unitOfWork.SaveChanges();
-                await hubContext.Clients.All.broadcast();
 
             }
+            await hubContext.Clients.All.broadcast();
             return Ok();
 
             //var data = _unitOfWork.CommentLikes.FindInCommentLike(id, _comment.UserId);
@@ -95,7 +95,7 @@ namespace ELearningBackend.Controllers
             {
                 await _unitOfWork.CommentDisLikes.AddAsync(_comment);
                 await _unitOfWork.SaveAsync();
-                await hubContext.Clients.All.broadcast();
+                //await hubContext.Clients.All.broadcast();
 
             }
 
@@ -104,9 +104,9 @@ namespace ELearningBackend.Controllers
             {
                 _unitOfWork.CommentLikes.Remove(data);
                 _unitOfWork.SaveChanges();
-                await hubContext.Clients.All.broadcast();
 
             }
+            await hubContext.Clients.All.broadcast();
             return Ok();
 
 
