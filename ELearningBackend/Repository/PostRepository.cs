@@ -16,13 +16,13 @@ namespace ELearningBackend.Repository
         public async Task<IEnumerable<Post>> GetAllPosts()
         {
             //return await context.Posts.Include(p => p.Comments).ThenInclude(c=>c.CommentLikes).Include(p=>p.PostLikes).Include(p=>p.User).ToListAsync();
-            return await context.Posts.Include(p=>p.User).Include(p => p.Comments).Include(p => p.PostLikes).Include(p => p.PostDisLikes).ToListAsync();
+            return await context.Posts.Include(p=>p.User).Include(p => p.Comments).Include(p => p.PostLikes).Include(p => p.PostDisLikes).OrderByDescending(p=>p.CreatedAt).ToListAsync();
         }
 
-        public async Task<IEnumerable<Post>> GetPostsWithLimit()
+        public async Task<IEnumerable<Post>> GetPostsWithLimit(int id)
         {
             //return await context.Posts.Include(p => p.Comments).ThenInclude(c=>c.CommentLikes).Include(p=>p.PostLikes).Include(p=>p.User).ToListAsync();
-            return await context.Posts.Include(p => p.User).Include(p => p.Comments).Include(p => p.PostLikes).Include(p => p.PostDisLikes).Take(4).ToListAsync();
+            return await context.Posts.Include(p => p.User).Include(p => p.Comments).Include(p => p.PostLikes).Include(p => p.PostDisLikes).Where(p=>p.Id!=id).Take(4).ToListAsync();
         }
 
 
