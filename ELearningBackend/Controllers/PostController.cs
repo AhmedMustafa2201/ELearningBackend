@@ -36,10 +36,10 @@ namespace ELearningBackend.Controllers
             return Ok(_mapper.Map<IEnumerable<PostDTO>>(data));
         }
 
-        [HttpGet("limited")]
-        public async Task<ActionResult<IEnumerable<PostDTO>>> GetPostsWithLimited()
+        [HttpGet("limited/{id}")]
+        public async Task<ActionResult<IEnumerable<PostDTO>>> GetPostsWithLimited([FromRoute] int id)
         {
-            var data = await _unitOfWork.Posts.GetPostsWithLimit();
+            var data = await _unitOfWork.Posts.GetPostsWithLimit(id);
             return Ok(_mapper.Map<IEnumerable<PostDTO>>(data));
         }
 

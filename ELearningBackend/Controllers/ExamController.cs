@@ -1,4 +1,6 @@
-﻿using ELearningBackend.Models;
+﻿using AutoMapper;
+using ELearningBackend.DTOs;
+using ELearningBackend.Models;
 using ELearningBackend.Repository;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -16,10 +18,21 @@ namespace ELearningBackend.Controllers
     public class ExamController : ControllerBase
     {
         private IUnitOfWork _unitOfWork;
-        public ExamController(IUnitOfWork unitOfWork)
+        private readonly IMapper _mapper;
+        public ExamController(IUnitOfWork unitOfWork, IMapper mapper)
         {
             _unitOfWork = unitOfWork;
+            _mapper = mapper;
         }
+
+
+        [HttpGet("allQuestions")]
+        public async Task<ActionResult<IEnumerable<QuestionDTO>>> GetAllQuestionsAsync()
+        {
+            return Ok(_mapper.Map<IEnumerable<QuestionDTO>>(await _unitOfWork.Questions.GetAllAsync()));
+            //return Ok(await _unitOfWork.Questions.GetAllAsync());
+        }
+
 
         [HttpGet("{id}")]
         public async Task<ActionResult<Exam>> GetExamsAsync([FromRoute] int id)
@@ -30,7 +43,7 @@ namespace ELearningBackend.Controllers
         [HttpGet("Topic/{QstnId}")]
         public async Task<ActionResult<IEnumerable<Question>>> GetQuestionsByTopicAsync([FromRoute] int QstnId)
         {
-                return Ok(await _unitOfWork.Questions.GetRelatedAsync(QstnId));
+            return Ok(await _unitOfWork.Questions.GetRelatedAsync(QstnId));
         }
 
         [HttpPost]

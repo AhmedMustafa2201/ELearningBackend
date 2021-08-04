@@ -13,6 +13,14 @@ namespace ELearningBackend.Repository
         {
 
         }
+
+        public new async Task<IEnumerable<Question>> GetAllAsync()
+        {
+            return await context.Questions.Include(q => q.options)
+                .Include(q=>q.Topics)
+                .ToListAsync();
+        }
+
         public async Task<IEnumerable<Question>> GetByTopicAsync(int TopicId)
         {
             var topic = await context.Topics.FindAsync(TopicId);

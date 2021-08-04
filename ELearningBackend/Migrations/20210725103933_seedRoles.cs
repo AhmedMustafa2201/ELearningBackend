@@ -29,21 +29,21 @@ namespace ELearningBackend.Migrations
                 );
 
             //inserting new user
-            migrationBuilder.InsertData(
-           table: "AspNetUsers"
-           , columns: new[] { "Id", "FirstName", "LastName", "EmailConfirmed", "PhoneNumberConfirmed", "TwoFactorEnabled", "LockoutEnabled", "AccessFailedCount" }
-           , values: new object[] { Guid.NewGuid().ToString(), "Ahmed", "Mustafa",false, false, false, false, 0  }
-           );
-            migrationBuilder.InsertData(
-           table: "AspNetUsers"
-           , columns: new[] { "Id", "FirstName", "LastName", "EmailConfirmed", "PhoneNumberConfirmed", "TwoFactorEnabled", "LockoutEnabled", "AccessFailedCount" }
-           , values: new object[] { Guid.NewGuid().ToString(), "Ali", "Gamal", false, false, false, false, 0 }
-           );
-            migrationBuilder.InsertData(
-           table: "AspNetUsers"
-           , columns: new[] { "Id", "FirstName", "LastName", "EmailConfirmed", "PhoneNumberConfirmed", "TwoFactorEnabled", "LockoutEnabled", "AccessFailedCount" }
-           , values: new object[] { Guid.NewGuid().ToString(), "Abudallah", "hamdo", false, false, false, false, 0 }
-           );
+           // migrationBuilder.InsertData(
+           //table: "AspNetUsers"
+           //, columns: new[] { "Id", "FirstName", "LastName", "EmailConfirmed", "PhoneNumberConfirmed", "TwoFactorEnabled", "LockoutEnabled", "AccessFailedCount" }
+           //, values: new object[] { Guid.NewGuid().ToString(), "Ahmed", "Mustafa",false, false, false, false, 0  }
+           //);
+           // migrationBuilder.InsertData(
+           //table: "AspNetUsers"
+           //, columns: new[] { "Id", "FirstName", "LastName", "EmailConfirmed", "PhoneNumberConfirmed", "TwoFactorEnabled", "LockoutEnabled", "AccessFailedCount" }
+           //, values: new object[] { Guid.NewGuid().ToString(), "Ali", "Gamal", false, false, false, false, 0 }
+           //);
+           // migrationBuilder.InsertData(
+           //table: "AspNetUsers"
+           //, columns: new[] { "Id", "FirstName", "LastName", "EmailConfirmed", "PhoneNumberConfirmed", "TwoFactorEnabled", "LockoutEnabled", "AccessFailedCount" }
+           //, values: new object[] { Guid.NewGuid().ToString(), "Abudallah", "hamdo", false, false, false, false, 0 }
+           //);
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

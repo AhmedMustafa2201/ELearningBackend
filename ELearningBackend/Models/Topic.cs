@@ -15,6 +15,7 @@ namespace ELearningBackend.Models
         public int LessonNo { get; set; }
         public ICollection<Video> Videos { get; set; } = new HashSet<Video>();
         public ICollection<Article> Articles { get; set; } = new HashSet<Article>();
+        [JsonIgnore]
         public ICollection<Question> Questions { get; set; } = new HashSet<Question>();
     }
 }
