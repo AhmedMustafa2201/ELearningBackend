@@ -26,7 +26,7 @@ namespace ELearningBackend.Services
         public async Task<AuthModel> RegisterAsync(RegisterModel model)
         {
             if (await _userManager.FindByEmailAsync(model.Email) is not null)
-                return new AuthModel() { Message = "Email is Already Rigestered", IsAuthinticated = false };
+                return new AuthModel() { Message = "هذا البريد الإلكتروني موجود بالفعل", IsAuthinticated = false };
 
 
             var user = new ApplicationUser()
@@ -104,7 +104,7 @@ namespace ELearningBackend.Services
             var user = await _userManager.FindByEmailAsync(model.Email);
             if(user is null || !await _userManager.CheckPasswordAsync(user,model.Password))
             {
-                authModel.Message = "Email or Password is incorrect";
+                authModel.Message = "البريد الإلكتروني أو كلمة السر غير صحيح";
                 authModel.IsAuthinticated = false;
                 return authModel;
             }

@@ -14,6 +14,8 @@ namespace ELearningBackend.Migrations
             migrationBuilder.Sql("INSERT [dbo].[Topics] ( [Title], [YearNo], [UnitNo], [LessonNo]) VALUES ( N'إعمال اسم المفعول', 1, 2, 3)");
             migrationBuilder.Sql("INSERT [dbo].[Topics] ( [Title], [YearNo], [UnitNo], [LessonNo]) VALUES ( N'إعمال صيغة المبالغة', 1, 2, 4)");
             migrationBuilder.Sql("INSERT [dbo].[Topics] ( [Title], [YearNo], [UnitNo], [LessonNo]) VALUES ( N'الممنوع من الصرف', 3, 6, 1)");
+            migrationBuilder.Sql("INSERT [dbo].[Topics] ( [Title], [YearNo], [UnitNo], [LessonNo]) VALUES ( N'المصدر المؤول', 2, 4, 1)");
+
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
