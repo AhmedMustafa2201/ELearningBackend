@@ -32,7 +32,6 @@ namespace ELearningBackend.Migrations
             migrationBuilder.Sql("INSERT [dbo].[Options] ( [Content], [IsCorrect], [QuestionId]) VALUES ( N'واجب', 0, 7)");
             migrationBuilder.Sql("INSERT [dbo].[Options] ( [Content], [IsCorrect], [QuestionId]) VALUES ( N'جائز', 1, 7)");
             migrationBuilder.Sql("INSERT [dbo].[Options] ( [Content], [IsCorrect], [QuestionId]) VALUES ( N'واجب', 1, 8)");
-            migrationBuilder.Sql("INSERT [dbo].[Options] ( [Content], [IsCorrect], [QuestionId]) VALUES ( N'واجب', 1, 8)");
             migrationBuilder.Sql("INSERT [dbo].[Options] ( [Content], [IsCorrect], [QuestionId]) VALUES ( N'جائز', 0, 8)");
             migrationBuilder.Sql("INSERT [dbo].[Options] ( [Content], [IsCorrect], [QuestionId]) VALUES ( N'فاعل', 0, 9)");
             migrationBuilder.Sql("INSERT [dbo].[Options] ( [Content], [IsCorrect], [QuestionId]) VALUES ( N'مبتدأ ثان', 0, 9)");
