@@ -24,6 +24,7 @@ namespace ELearningBackend.Repository
         private IArticleRepository _articles;
         private IPostDisLikeRepository _postDisLike;
         private IUserRepository _users;
+        private ILessonComment _lessonComment;
 
 
         public IQuestionRepository Questions
@@ -91,6 +92,17 @@ namespace ELearningBackend.Repository
                 if (_comments is null)
                     _comments = new CommentRepository(_context);
                 return _comments;
+            }
+        }
+
+        public ILessonComment LessonComment
+        {
+            get
+            {
+                if (_lessonComment is null)
+                    _lessonComment = new LessonCommentRepository(_context);
+
+                return _lessonComment;
             }
         }
 
