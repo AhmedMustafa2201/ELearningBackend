@@ -12,7 +12,7 @@ namespace ELearningBackend.Migrations
             migrationBuilder.Sql("INSERT [dbo].[TopicVideo] ([TopicsId], [VideosId]) VALUES (7, 2)");
             migrationBuilder.Sql("INSERT [dbo].[TopicVideo] ([TopicsId], [VideosId]) VALUES (4, 3)");
             migrationBuilder.Sql("INSERT [dbo].[TopicVideo] ([TopicsId], [VideosId]) VALUES (6, 3)");
-            migrationBuilder.Sql("INSERT [dbo].[TopicVideo] ([TopicsId], [VideosId]) VALUES (1, 4)");
+            migrationBuilder.Sql("INSERT [dbo].[TopicVideo] ([TopicsId], [VideosId]) VALUES (4, 4)");
             migrationBuilder.Sql("INSERT [dbo].[TopicVideo] ([TopicsId], [VideosId]) VALUES (1, 5)");
             migrationBuilder.Sql("INSERT [dbo].[TopicVideo] ([TopicsId], [VideosId]) VALUES (1, 6)");
             migrationBuilder.Sql("INSERT [dbo].[TopicVideo] ([TopicsId], [VideosId]) VALUES (1, 7)");
