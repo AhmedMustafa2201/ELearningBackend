@@ -20,9 +20,17 @@ namespace ELearningBackend.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<ApplicationUser>> GetExamsAsync([FromRoute] string id)
+        public async Task<ActionResult<ApplicationUser>> GetUserAsync([FromRoute] string id)
         {
             return Ok(await _unitOfWork.Users.GetByIdAsync(id));
+        }
+
+        [HttpPut]
+        public IActionResult UpdateUser(ApplicationUser user)
+        {
+            _unitOfWork.Users.Update(user);
+            _unitOfWork.SaveChanges();
+            return Ok();
         }
 
     }

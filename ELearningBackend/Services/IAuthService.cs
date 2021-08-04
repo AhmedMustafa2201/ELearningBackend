@@ -10,6 +10,7 @@ namespace ELearningBackend.Services
     {
         Task<AuthModel> RegisterAsync(RegisterModel model);
         Task<AuthModel> GetTokenAsync(TokentRequesModel model);
-
+        Task<bool> ChangePasswordAsync(ChangePasswordModel model);
+        Task<bool> ChangeEmaildAsync(ChangeEmailModel model);
     }
 }
