@@ -24,5 +24,14 @@ namespace ELearningBackend.Controllers
         {
             return Ok(await _unitOfWork.Users.GetByIdAsync(id));
         }
+
+        [HttpPut]
+        public IActionResult UpdateUser(ApplicationUser user)
+        {
+            _unitOfWork.Users.Update(user);
+            _unitOfWork.SaveChanges();
+            return Ok();
+        }
+
     }
 }

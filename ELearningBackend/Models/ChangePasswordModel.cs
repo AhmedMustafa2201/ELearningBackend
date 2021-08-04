@@ -18,4 +18,13 @@ namespace ELearningBackend.Models
         public string NewPassword { get; set; }
 
     }
+
+    public class ChangeEmailModel
+    {
+        [Required, MaxLength(100)]
+        public string UserId { get; set; }
+
+        [Required, EmailAddress]
+        public string Email { get; set; }
+    }
 }

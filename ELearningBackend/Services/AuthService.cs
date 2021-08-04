@@ -135,5 +135,19 @@ namespace ELearningBackend.Services
             }
             return false;
         }
+
+        public async Task<bool> ChangeEmaildAsync(ChangeEmailModel model)
+        {
+            var user = await _userManager.FindByIdAsync(model.UserId);
+            if (!(user is null))
+            {
+                var ss = await _userManager.SetEmailAsync(user, model.Email);
+                if (ss.Succeeded)
+                    return true;
+                else
+                    return false;
+            }
+            return false;
+        }
     }
 }
