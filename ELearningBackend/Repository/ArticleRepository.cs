@@ -45,5 +45,9 @@ namespace ELearningBackend.Repository
         {
             return await context.Articles.Take(3).ToListAsync();
         }
+        public async Task<IEnumerable<Article>> GetAllArticleAsync()
+        {
+            return await context.Articles.ToListAsync();
+        }
     }
 }
