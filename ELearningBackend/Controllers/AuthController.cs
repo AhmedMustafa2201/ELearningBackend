@@ -66,7 +66,7 @@ namespace ELearningBackend.Controllers
             var result = await _authService.ChangePasswordAsync(model);
 
             if (!result)
-                return BadRequest("كلمة المرور تضمن ارقام وحروف ورموز لجعلها أقوي من ان تُخترق");
+                return BadRequest("كلمة المرور تضمن ارقام وحروف ورموز لجعلها أقوي من ان تُخترق. كما انه يجب ان تُدخل كلمة المرور الصحيحة التي تستخدمها لتسجيل الدخول");
 
             return Ok();
         }

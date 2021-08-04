@@ -127,11 +127,18 @@ namespace ELearningBackend.Services
             var user = await _userManager.FindByIdAsync(model.UserId);
             if(!(user is null))
             {
-                var tt = await _userManager.ChangePasswordAsync(user, model.CurrentPassword, model.NewPassword);
-                if (tt.Succeeded)
-                    return true;
-                else
+                try
+                {
+                    var tt = await _userManager.ChangePasswordAsync(user, model.CurrentPassword, model.NewPassword);
+                    if (tt.Succeeded)
+                        return true;
+                    else
+                        return false;
+                }
+                catch (Exception)
+                {
                     return false;
+                }
             }
             return false;
         }
