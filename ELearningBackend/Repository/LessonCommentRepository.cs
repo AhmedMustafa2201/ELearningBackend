@@ -13,9 +13,18 @@ namespace ELearningBackend.Repository
         {
 
         }
-        public async Task<IEnumerable<LessonComment>> GetAllComments()
+
+        public void AddAsync(LessonComment entity)
         {
-            return await context.lessonComment.ToListAsync();
+            context.lessonComment.Add(entity);
+            context.SaveChanges();
         }
+
+        public async Task<IEnumerable<LessonComment>> GetAllCommentsBylsnId(int id)
+        {
+            return await context.lessonComment.Where(a=>a.LessonId==id).ToListAsync();
+        }
+
+
     }
 }

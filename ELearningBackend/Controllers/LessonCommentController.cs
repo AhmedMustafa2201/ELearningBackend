@@ -1,6 +1,7 @@
 ﻿using ELearningBackend.Models;
 using ELearningBackend.Repository;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.SignalR;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,19 +16,22 @@ namespace ELearningBackend.Controllers
     {
 
         private IUnitOfWork _unitOfWork;
-        public LessonCommentController(IUnitOfWork unitOfWork)
+        private readonly IHubContext<BroadcastHub, IHubClient> hubContext;
+
+        public LessonCommentController(IUnitOfWork unitOfWork, IHubContext<BroadcastHub, IHubClient> _hubContext)
         {
             _unitOfWork = unitOfWork;
+            hubContext = _hubContext;
         }
 
 
         // GET: api/<LessonCommentController>
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<LessonComment>>> GetAll()
+        [HttpGet("{id}")]
+        public async Task<ActionResult<IEnumerable<LessonComment>>> GetAll(int id)
         {
             try
             {
-                return Ok(await _unitOfWork.LessonComment.GetAllComments());
+                return Ok(await _unitOfWork.LessonComment.GetAllCommentsBylsnId(id));
 
             }
             catch (Exception e)
@@ -44,11 +48,17 @@ namespace ELearningBackend.Controllers
         //    return "value";
         //}
 
-        //// POST api/<LessonCommentController>
-        //[HttpPost]
-        //public void Post([FromBody] string value)
-        //{
-        //}
+        // POST api/<LessonCommentController>
+
+        [HttpPost]
+        public async Task<ActionResult> Comment(LessonComment comment)
+        {
+             _unitOfWork.LessonComment.AddAsync(comment);
+             _unitOfWork.SaveChanges();
+            await hubContext.Clients.All.comment();
+
+            return Ok();
+        }
 
         //// PUT api/<LessonCommentController>/5
         //[HttpPut("{id}")]

@@ -8,6 +8,8 @@ namespace ELearningBackend.Repository
 {
     public interface ILessonComment
     {
-        Task<IEnumerable<LessonComment>> GetAllComments();
+        Task<IEnumerable<LessonComment>> GetAllCommentsBylsnId(int id);
+        void AddAsync(LessonComment entity);
+
     }
 }

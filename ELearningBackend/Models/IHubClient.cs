@@ -8,5 +8,6 @@ namespace ELearningBackend.Models
     public interface IHubClient
     {
         Task broadcast();
+        Task comment();
     }
 }
