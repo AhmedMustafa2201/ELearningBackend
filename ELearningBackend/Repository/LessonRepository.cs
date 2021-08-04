@@ -44,7 +44,7 @@ namespace ELearningBackend.Repository
 
         public async Task<IEnumerable<Video>> GetSomeLsnAsync()
         {
-            return await context.Videos.Take(4).ToListAsync();
+            return await context.Videos.Take(6).ToListAsync();
         }
     }
 }

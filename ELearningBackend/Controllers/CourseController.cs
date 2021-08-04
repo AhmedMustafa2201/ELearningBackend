@@ -21,7 +21,7 @@ namespace ELearningBackend.Controllers
         {
             return Ok(await _unitOfWork.Courses.GetCourseByIdAsync(id));
         }
-        [HttpGet]
+        [HttpGet("[controller]")]
         public async Task<ActionResult<IEnumerable<Course>>> GetFewCrs()
         {
             return Ok(await _unitOfWork.Courses.GetSomeCoursesAsync());

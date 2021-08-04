@@ -21,7 +21,7 @@ namespace ELearningBackend.Repository
         }
         public async Task<IEnumerable<Course>> GetSomeCoursesAsync()
         {
-            return await context.Courses.Take(9).ToListAsync();
+            return await context.Courses.Take(4).ToListAsync();
         }
     }
 }
