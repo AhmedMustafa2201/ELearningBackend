@@ -22,7 +22,7 @@ namespace ELearningBackend.Repository
 
         public async Task<IEnumerable<LessonComment>> GetAllCommentsBylsnId(int id)
         {
-            return await context.lessonComment.Where(a=>a.LessonId==id).ToListAsync();
+            return await context.lessonComment.Where(a=>a.LessonId==id).Include(l=>l.User).ToListAsync();
         }
 
 
