@@ -42,7 +42,13 @@ namespace ELearningBackend
             CreateMap<Option, OptionsDTO>();
             CreateMap<Topic, TopicDTO>();
 
-
+            CreateMap<LessonComment, LessonCommentDTO>()
+                .ForPath(dest => dest.Content, cmnt => cmnt.MapFrom(src => src.Content))
+                .ForPath(dest => dest.CreatedAt, cmnt => cmnt.MapFrom(src => src.CreatedAt))
+                .ForPath(dest => dest.LessonName, cmnt => cmnt.MapFrom(src => src.Lesson.Title))
+                .ForPath(dest => dest.UserName, cmnt => cmnt.MapFrom(src => src.User.FirstName + " " + src.User.LastName))
+                .ForPath(dest => dest.Id, cmnt => cmnt.MapFrom(src => src.LessonId))
+                .ForPath(dest => dest.Image, cmnt => cmnt.MapFrom(src => src.User.Image));
         }
     }
 }

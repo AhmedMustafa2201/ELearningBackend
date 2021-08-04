@@ -1,4 +1,6 @@
-﻿using ELearningBackend.Models;
+﻿using AutoMapper;
+using ELearningBackend.DTOs;
+using ELearningBackend.Models;
 using ELearningBackend.Repository;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SignalR;
@@ -16,27 +18,28 @@ namespace ELearningBackend.Controllers
     {
 
         private IUnitOfWork _unitOfWork;
+        private readonly IMapper _mapper;
         private readonly IHubContext<BroadcastHub, IHubClient> hubContext;
 
-        public LessonCommentController(IUnitOfWork unitOfWork, IHubContext<BroadcastHub, IHubClient> _hubContext)
+        public LessonCommentController(IMapper mapper, IUnitOfWork unitOfWork, IHubContext<BroadcastHub, IHubClient> _hubContext)
         {
             _unitOfWork = unitOfWork;
             hubContext = _hubContext;
+            _mapper = mapper;
         }
 
 
         // GET: api/<LessonCommentController>
         [HttpGet("{id}")]
-        public async Task<ActionResult<IEnumerable<LessonComment>>> GetAll(int id)
+        public async Task<ActionResult<IEnumerable<LessonCommentDTO>>> GetAll(int id)
         {
             try
             {
-                return Ok(await _unitOfWork.LessonComment.GetAllCommentsBylsnId(id));
-
+                var Comments = await _unitOfWork.LessonComment.GetAllCommentsBylsnId(id);
+                return Ok(_mapper.Map<IEnumerable<LessonCommentDTO>>(Comments));
             }
             catch (Exception e)
             {
-
                 return BadRequest(e.Message);
             }
         }
