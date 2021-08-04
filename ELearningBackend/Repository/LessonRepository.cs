@@ -25,8 +25,13 @@ namespace ELearningBackend.Repository
         }
         public async Task<IEnumerable<Video>>GetRelatedAsync(int LsnId)
         {
+           IEnumerable<Topic> topics;
+            var article = await context.Articles.FindAsync(LsnId);
             var video = await context.Videos.FindAsync(LsnId);
-            var topics = await context.Topics.Where(t => t.Videos.Contains(video)).ToListAsync();
+            if (article is null)
+                topics = await context.Topics.Where(t => t.Videos.Contains(video)).ToListAsync();
+            else
+                topics = await context.Topics.Where(t => t.Articles.Contains(article)).ToListAsync();
 
             List<Video> videos = new List<Video>();
 

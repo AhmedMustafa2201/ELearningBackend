@@ -27,6 +27,7 @@ namespace ELearningBackend.Models
         public DbSet<PostDisLike> DisLikes { get; set; }
         public DbSet<CommentLike> CommentLikes { get; set; }
         public DbSet<CommentDisLike> CommentDisLikes { get; set; }
+        public DbSet<LessonComment> lessonComment { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {

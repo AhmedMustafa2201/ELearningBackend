@@ -27,5 +27,11 @@ namespace ELearningBackend.Controllers
             return Ok(await _unitOfWork.Courses.GetSomeCoursesAsync());
         }
 
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<Course>>> GetAll()
+        {
+            return Ok(await _unitOfWork.Courses.GetCoursesAsync());
+        }
+
     }
 }
