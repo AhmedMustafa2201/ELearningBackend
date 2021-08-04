@@ -23,6 +23,8 @@ namespace ELearningBackend.Repository
         private ICourse _courses;
         private IArticleRepository _articles;
         private IPostDisLikeRepository _postDisLike;
+        private IUserRepository _users;
+
 
         public IQuestionRepository Questions
         {
@@ -137,6 +139,16 @@ namespace ELearningBackend.Repository
                 if (_commentDisLikes is null)
                     _commentDisLikes = new CommentDisLikeRepository(_context);
                 return _commentDisLikes;
+            }
+        }
+
+        public IUserRepository Users
+        {
+            get
+            {
+                if (_users is null)
+                    _users = new UserRepository(_context);
+                return _users;
             }
         }
 
