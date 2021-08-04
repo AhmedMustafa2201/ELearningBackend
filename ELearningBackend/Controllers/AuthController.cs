@@ -101,8 +101,8 @@ namespace ELearningBackend.Controllers
                     string fileExtension = Path.GetExtension(fileName).ToLower();
                     if(fileExtension==".jpg"|| fileExtension == ".png")
                     {
-                        string fullPath = Path.Combine(newPath, "User"+id+fileExtension);
-                        var dbPath = Path.Combine(folderName, fileName);
+                        string fullPath = Path.Combine(newPath, "User"+id+ fileExtension);
+                        var dbPath = Path.Combine(folderName, "User" + id + fileExtension);
                         using (var stream = new FileStream(fullPath, FileMode.Create))
                         {
                             file.CopyTo(stream);
