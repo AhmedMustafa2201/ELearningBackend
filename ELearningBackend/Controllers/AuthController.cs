@@ -49,5 +49,19 @@ namespace ELearningBackend.Controllers
 
             return Ok(result);
         }
+
+        [HttpPost("changePassword")]
+        public async Task<IActionResult> ChangePasswordAsync(ChangePasswordModel model)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            var result = await _authService.ChangePasswordAsync(model);
+
+            if (!result)
+                return BadRequest("كلمة المرور تضمن ارقام وحروف ورموز لجعلها أقوي من ان تُخترق");
+
+            return Ok();
+        }
     }
 }

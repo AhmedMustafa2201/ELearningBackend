@@ -121,5 +121,19 @@ namespace ELearningBackend.Services
 
             return authModel;
         }
+
+        public async Task<bool> ChangePasswordAsync(ChangePasswordModel model)
+        {
+            var user = await _userManager.FindByIdAsync(model.UserId);
+            if(!(user is null))
+            {
+                var tt = await _userManager.ChangePasswordAsync(user, model.CurrentPassword, model.NewPassword);
+                if (tt.Succeeded)
+                    return true;
+                else
+                    return false;
+            }
+            return false;
+        }
     }
 }

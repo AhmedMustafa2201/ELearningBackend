@@ -20,10 +20,9 @@ namespace ELearningBackend.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<ApplicationUser>> GetExamsAsync([FromRoute] string id)
+        public async Task<ActionResult<ApplicationUser>> GetUserAsync([FromRoute] string id)
         {
             return Ok(await _unitOfWork.Users.GetByIdAsync(id));
         }
-
     }
 }
