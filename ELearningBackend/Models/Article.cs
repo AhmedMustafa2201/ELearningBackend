@@ -9,6 +9,7 @@ namespace ELearningBackend.Models
     public class Article:Lesson
     {
         public string Content { get; set; }
+        public string Discription { get; set; }
         [JsonIgnore]
         public ICollection<Topic> Topics { get; set; } = new HashSet<Topic>();
 
